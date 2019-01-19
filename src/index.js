@@ -15,22 +15,20 @@ function App() {
         }}
       >
         <div style={{ justifyContent: "flex-start" }}>
-          Hugh Miles
-          <br />
-          Software Engineer
-          <div style={{ flexGrow: 1 }}>
-            Pleff lorem monaq morel plaff lerom baple merol pliff ipsum ponaq
-            mipsu ploff pimsu caple supim pluff sumip qonaq issum daple ussum
-            ronaq ossom fap25 abcde tonaq fghij gaple klmno vonaq pqrst haple
-            uvwxy nonaq zzzz. Laple pleff lorem monaq morel plaff sumip qonaq
-            issum daple ussum ponaq gaple klm50 lorem monaq morel plaff lerom
-            baple merol pliff ipsum ponaq mipsu ploff pimsu caple supim pluff
-            sumip qonaq issum daple ussum ronaq ossom faple abc75 tonaq fghij
-            gaple klmno vonaq pqrst haple uvwxy nonaq zzzzz laple pleff lorem
-            monaq morel plaff sumip qonaq issum daple ussum ponaq gapl.
+          <div style={{ margin: "10px 0" }}>
+            Hugh Miles
+            <br />
+            Software Engineer
+          </div>
+          <div>
+            I am Hugh Miles, a 26 year old Software engineer living in San
+            Francisco working for the best transportation company in the world
+            Lyft. I've been coding for over 5 years and have worked on multiple
+            projects ranging from landing pages and data pipelines. To see some
+            of my work feel free to explore the side-B of the site.
           </div>
           <div>hugh@hacksnextdoor.com</div>
-          <div>Linkedin Instagram Github Linkedin</div>
+          <div>Linkedin Instagram Github Medium</div>
         </div>
         <div
           style={{ justifyContent: "flex-start", backgroundColor: "blue" }}
