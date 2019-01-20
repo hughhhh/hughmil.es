@@ -4,7 +4,20 @@ import autoBind from "auto-bind";
 
 import "./styles.css";
 
-const projects = [{ name: "St. George Learning Center" }];
+const projects = [
+  { name: "protoc-gen-flaskbluerint" },
+  { name: "St. George Learning Center" },
+  { name: "Rapbook" },
+  { name: "KickSwap" },
+  { name: "uRyde" }
+];
+
+const socialMedia = [
+  { name: "Linkedin", url: "https://www.linkedin.com/in/hugh-miles-75956488" },
+  { name: "Medium" },
+  { name: "Github", url: "https://github.com/hughhhh" },
+  { name: "Instagram" }
+];
 
 class App extends React.Component {
   constructor(props) {
@@ -19,7 +32,7 @@ class App extends React.Component {
           width: "25%"
         }}
       >
-        <div>Projects</div>
+        <div className="padding-x-sm">Projects</div>
         {projects.map(item => (
           <div>{item.name}</div>
         ))}
@@ -29,7 +42,7 @@ class App extends React.Component {
 
   renderBio() {
     return (
-      <div style={{ width: "25%" }}>
+      <div style={{ width: "25%", color: "black" }}>
         <div className="padding-sm">
           Hugh Miles
           <br />
@@ -44,10 +57,17 @@ class App extends React.Component {
         </div>
         <div className="padding-sm">hugh@hacksnextdoor.com</div>
         <div className="padding-sm">
-          <div>Linkedin</div>
-          <div>Medium </div>
-          <div>Github </div>
-          <div>Instagram</div>
+          {socialMedia.map(item => (
+            <div>
+              <a
+                className="rm-link-dec"
+                style={{ color: "black", textDecorationLine: null }}
+                href={item.url}
+              >
+                {item.name}
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -56,12 +76,14 @@ class App extends React.Component {
   renderProjectDetails() {
     return (
       <div
+        className="padding-sm"
         style={{
           justifyContent: "flex-start",
           width: "50%"
         }}
       >
-        Project Details
+        <div>Project Details</div>
+        <div className>Coming soon....</div>
       </div>
     );
   }
