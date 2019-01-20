@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "auto-bind": "2.0.0",
     "moment": "2.23.0",
     "react": "16.5.2",
     "react-dom": "16.5.2",
