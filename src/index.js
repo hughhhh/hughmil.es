@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import autoBind from "auto-bind";
+import ReactGA from "react-ga";
 
 import "./styles.css";
 
@@ -15,14 +16,20 @@ const projects = [
 const socialMedia = [
   { name: "Linkedin", url: "https://www.linkedin.com/in/hugh-miles-75956488" },
   { name: "Medium" },
-  { name: "Github", url: "https://github.com/hughhhh" },
-  { name: "Instagram" }
+  { name: "Github", url: "https://github.com/hughhhh" }
 ];
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    ReactGA.initialize("UA-132787552-1");
+    ReactGA.pageview("/home");
+
+    ReactGA.event({
+      category: "user",
+      action: "visited-site"
+    });
   }
 
   renderProjects() {
