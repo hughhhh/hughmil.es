@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import autoBind from "auto-bind";
+import ReactGA from "react-ga";
 
 import "./styles.css";
 
@@ -22,6 +23,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     autoBind(this);
+    ReactGA.initialize("UA-132787552-1");
+    ReactGA.pageview("/home");
+
+    ReactGA.event({
+      category: "user",
+      action: "visited-site"
+    });
   }
 
   renderProjects() {
