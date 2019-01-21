@@ -4,6 +4,22 @@ body {
   text-decoration-style: black;
 }
 
+/* Mobile Styling */
+@media (min-width: 768px) {
+  .HolyGrail-body {
+    flex-direction: row;
+    flex: 1;
+  }
+  .HolyGrail-content {
+    flex: 1;
+  }
+  .HolyGrail-nav,
+  .HolyGrail-ads {
+    /* 12em is the width of the columns */
+    flex: 0 0 12em;
+  }
+}
+
 .App {
   font-family: "Source Code Pro", monospace;
   width: 100%;
