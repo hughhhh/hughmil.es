@@ -15,8 +15,7 @@ const projects = [
 const socialMedia = [
   { name: "Linkedin", url: "https://www.linkedin.com/in/hugh-miles-75956488" },
   { name: "Medium" },
-  { name: "Github", url: "https://github.com/hughhhh" },
-  { name: "Instagram" }
+  { name: "Github", url: "https://github.com/hughhhh" }
 ];
 
 class App extends React.Component {
