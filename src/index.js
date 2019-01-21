@@ -15,7 +15,7 @@ const projects = [
 
 const socialMedia = [
   { name: "Linkedin", url: "https://www.linkedin.com/in/hugh-miles-75956488" },
-  { name: "Medium" },
+  { name: "Medium", url: "https://medium.com/hacksnextdoor" },
   { name: "Github", url: "https://github.com/hughhhh" }
 ];
 
