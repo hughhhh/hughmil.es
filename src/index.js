@@ -5,6 +5,7 @@ import autoBind from "auto-bind";
 import "./styles.css";
 
 const projects = [
+  { name: "apache/incubtor-superset" },
   { name: "protoc-gen-flaskbluerint" },
   { name: "St. George Learning Center" },
   { name: "Rapbook" },
@@ -41,7 +42,7 @@ class App extends React.Component {
 
   renderBio() {
     return (
-      <div style={{ width: "25%", color: "black" }}>
+      <div style={{ width: "35%", color: "black" }}>
         <div className="padding-sm">
           Hugh Miles
           <br />
@@ -78,7 +79,7 @@ class App extends React.Component {
         className="padding-sm"
         style={{
           justifyContent: "flex-start",
-          width: "50%"
+          width: "40%"
         }}
       >
         <div>Project Details</div>
