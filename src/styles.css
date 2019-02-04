@@ -4,26 +4,18 @@ body {
   text-decoration-style: black;
 }
 
-/* Mobile Styling */
-@media (min-width: 768px) {
-  .HolyGrail-body {
-    flex-direction: row;
-    flex: 1;
-  }
-  .HolyGrail-content {
-    flex: 1;
-  }
-  .HolyGrail-nav,
-  .HolyGrail-ads {
-    /* 12em is the width of the columns */
-    flex: 0 0 12em;
-  }
-}
-
 .App {
   font-family: "Source Code Pro", monospace;
   width: 100%;
   height: 100%;
+}
+
+.Container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
 }
 
 .rm-link-dec {
