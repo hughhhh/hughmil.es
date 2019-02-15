@@ -30,7 +30,23 @@ class App extends React.Component {
       category: "user",
       action: "visited-site"
     });
+
+    this.state = {
+      width: window.innerWidth
+    };
   }
+
+  componentWillMount() {
+    window.addEventListener("resize", this.handleWindowSizeChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleWindowSizeChange);
+  }
+
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
 
   renderProjects() {
     return (
@@ -70,6 +86,7 @@ class App extends React.Component {
                 className="rm-link-dec"
                 style={{ color: "black", textDecorationLine: null }}
                 href={item.url}
+                key={item.url}
               >
                 {item.name}
               </a>
@@ -90,21 +107,19 @@ class App extends React.Component {
         }}
       >
         <div>Project Details</div>
-        <div className>Coming soon....</div>
+        <div>Coming soon....</div>
       </div>
     );
   }
 
   render() {
+    const { width } = this.state;
+    const isMobile = width <= 500;
     return (
       <div className="App">
         <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            flexDirection: "row",
-            width: "100%"
-          }}
+          className="Container"
+          style={{ flexDirection: isMobile ? "column" : "row" }}
         >
           {this.renderBio()}
           {this.renderProjects()}
