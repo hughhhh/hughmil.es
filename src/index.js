@@ -7,6 +7,10 @@ import { format } from "d3-format";
 
 import "./styles.css";
 
+const SECONDS_IN_YEAR = 1 / 31536000;
+const MILLISECONDS_IN_YEAR = SECONDS_IN_YEAR / 1000;
+const AGE_FORMAT = ".12s";
+
 const projects = [
   { name: "protoc-gen-flaskbluerint" },
   { name: "St. George Learning Center" },
@@ -21,9 +25,7 @@ const socialMedia = [
   { name: "Github", url: "https://github.com/hughhhh" }
 ];
 
-const formatTime = time => {
-  return time;
-};
+const formatTime = time => format(AGE_FORMAT)(time);
 
 class App extends React.Component {
   constructor(props) {
@@ -37,18 +39,24 @@ class App extends React.Component {
       action: "visited-site"
     });
 
-    const seconds = moment().unix() - moment("199211306", "YYYYMMDD").unix();
-    const unixAgeInYears = seconds / 31536000;
+    // Move this to a config at the top
+    const unixAgeSeconds =
+      moment().unix() - moment("19921106", "YYYYMMDD").unix();
+    const codingAgeSeconds =
+      moment().unix() - moment("20141225", "YYYYMMDD").unix();
 
     this.state = {
-      age: unixAgeInYears,
+      age: unixAgeSeconds * SECONDS_IN_YEAR,
+      howLongIveBeenCoding: codingAgeSeconds * SECONDS_IN_YEAR,
       width: window.innerWidth
     };
 
     this.timer = setInterval(
       () =>
         this.setState({
-          age: formatTime(this.state.age + 1 / 31536)
+          age: this.state.age + MILLISECONDS_IN_YEAR,
+          howLongIveBeenCoding:
+            this.state.howLongIveBeenCoding + MILLISECONDS_IN_YEAR
         }),
       1
     );
@@ -82,7 +90,7 @@ class App extends React.Component {
   }
 
   renderBio() {
-    const { age } = this.state;
+    const { age, howLongIveBeenCoding } = this.state;
     return (
       <div style={{ width: "25%", color: "black" }}>
         <div className="padding-sm">
@@ -91,9 +99,10 @@ class App extends React.Component {
           Software Engineer
         </div>
         <div className="padding-sm">
-          I am Hugh Miles, a {age} year old Software engineer living in San
-          Francisco working for the best transportation company in the world
-          Lyft. I've been coding for over 5 years and have worked on multiple
+          I am Hugh Miles, a {formatTime(age)} year old Software engineer living
+          in San Francisco working for the best transportation company in the
+          world Lyft. I've been coding for over{" "}
+          {formatTime(howLongIveBeenCoding)} years and have worked on multiple
           projects ranging from landing pages and data pipelines. To see some of
           my work feel free to explore the side-B of the site.
         </div>
