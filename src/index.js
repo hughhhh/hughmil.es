@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import autoBind from "auto-bind";
 import ReactGA from "react-ga";
+import moment from "moment";
+import { format } from "d3-format";
 
 import "./styles.css";
 
@@ -19,6 +21,10 @@ const socialMedia = [
   { name: "Github", url: "https://github.com/hughhhh" }
 ];
 
+const formatTime = time => {
+  return time;
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +36,35 @@ class App extends React.Component {
       category: "user",
       action: "visited-site"
     });
+
+    const seconds = moment().unix() - moment("199211306", "YYYYMMDD").unix();
+    const unixAgeInYears = seconds / 31536000;
+
+    this.state = {
+      age: unixAgeInYears,
+      width: window.innerWidth
+    };
+
+    this.timer = setInterval(
+      () =>
+        this.setState({
+          age: formatTime(this.state.age + 1 / 31536)
+        }),
+      1
+    );
   }
+
+  componentWillMount() {
+    window.addEventListener("resize", this.handleWindowSizeChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleWindowSizeChange);
+  }
+
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
 
   renderProjects() {
     return (
@@ -48,6 +82,7 @@ class App extends React.Component {
   }
 
   renderBio() {
+    const { age } = this.state;
     return (
       <div style={{ width: "25%", color: "black" }}>
         <div className="padding-sm">
@@ -56,7 +91,7 @@ class App extends React.Component {
           Software Engineer
         </div>
         <div className="padding-sm">
-          I am Hugh Miles, a 26 year old Software engineer living in San
+          I am Hugh Miles, a {age} year old Software engineer living in San
           Francisco working for the best transportation company in the world
           Lyft. I've been coding for over 5 years and have worked on multiple
           projects ranging from landing pages and data pipelines. To see some of
@@ -70,6 +105,7 @@ class App extends React.Component {
                 className="rm-link-dec"
                 style={{ color: "black", textDecorationLine: null }}
                 href={item.url}
+                key={item.url}
               >
                 {item.name}
               </a>
@@ -90,21 +126,19 @@ class App extends React.Component {
         }}
       >
         <div>Project Details</div>
-        <div className>Coming soon....</div>
+        <div>Coming soon....</div>
       </div>
     );
   }
 
   render() {
+    const { width } = this.state;
+    const isMobile = width <= 500;
     return (
       <div className="App">
         <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            flexDirection: "row",
-            width: "100%"
-          }}
+          className="Container"
+          style={{ flexDirection: isMobile ? "column" : "row" }}
         >
           {this.renderBio()}
           {this.renderProjects()}
