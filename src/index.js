@@ -2,8 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import autoBind from "auto-bind";
 import ReactGA from "react-ga";
+import moment from "moment";
+import { format } from "d3-format";
 
 import "./styles.css";
+
+const SECONDS_IN_YEAR = 1 / 31536000;
+const MILLISECONDS_IN_YEAR = SECONDS_IN_YEAR / 1000;
+const AGE_FORMAT = ".12s";
 
 const projects = [
   { name: "protoc-gen-flaskbluerint" },
@@ -19,6 +25,8 @@ const socialMedia = [
   { name: "Github", url: "https://github.com/hughhhh" }
 ];
 
+const formatTime = time => format(AGE_FORMAT)(time);
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -31,9 +39,27 @@ class App extends React.Component {
       action: "visited-site"
     });
 
+    // Move this to a config at the top
+    const unixAgeSeconds =
+      moment().unix() - moment("19921106", "YYYYMMDD").unix();
+    const codingAgeSeconds =
+      moment().unix() - moment("20141225", "YYYYMMDD").unix();
+
     this.state = {
+      age: unixAgeSeconds * SECONDS_IN_YEAR,
+      howLongIveBeenCoding: codingAgeSeconds * SECONDS_IN_YEAR,
       width: window.innerWidth
     };
+
+    this.timer = setInterval(
+      () =>
+        this.setState({
+          age: this.state.age + MILLISECONDS_IN_YEAR,
+          howLongIveBeenCoding:
+            this.state.howLongIveBeenCoding + MILLISECONDS_IN_YEAR
+        }),
+      1
+    );
   }
 
   componentWillMount() {
@@ -45,14 +71,18 @@ class App extends React.Component {
   }
 
   handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
+    this.setState({
+      width: window.innerWidth,
+      isMobile: window.innerWidth <= 600
+    });
   };
 
   renderProjects() {
+    const { isMobile } = this.state;
     return (
       <div
         style={{
-          width: "25%"
+          width: isMobile ? "" : "25%"
         }}
       >
         <div className="padding-x-sm">Projects</div>
@@ -64,17 +94,19 @@ class App extends React.Component {
   }
 
   renderBio() {
+    const { age, howLongIveBeenCoding, isMobile } = this.state;
     return (
-      <div style={{ width: "25%", color: "black" }}>
+      <div style={{ color: "black", width: isMobile ? "" : "25%" }}>
         <div className="padding-sm">
           Hugh Miles
           <br />
           Software Engineer
         </div>
         <div className="padding-sm">
-          I am Hugh Miles, a 26 year old Software engineer living in San
-          Francisco working for the best transportation company in the world
-          Lyft. I've been coding for over 5 years and have worked on multiple
+          I am Hugh Miles, a {formatTime(age)} year old software engineer living
+          in San Francisco. I work for the best transportation company in the
+          world - Lyft. I've been coding for over{" "}
+          {formatTime(howLongIveBeenCoding)} years and have worked on multiple
           projects ranging from landing pages and data pipelines. To see some of
           my work feel free to explore the side-B of the site.
         </div>
@@ -113,8 +145,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { width } = this.state;
-    const isMobile = width <= 500;
+    const { isMobile } = this.state;
     return (
       <div className="App">
         <div
