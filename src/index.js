@@ -71,14 +71,18 @@ class App extends React.Component {
   }
 
   handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
+    this.setState({
+      width: window.innerWidth,
+      isMobile: window.innerWidth <= 600
+    });
   };
 
   renderProjects() {
+    const { isMobile } = this.state;
     return (
       <div
         style={{
-          width: "25%"
+          width: isMobile ? "" : "25%"
         }}
       >
         <div className="padding-x-sm">Projects</div>
@@ -90,18 +94,18 @@ class App extends React.Component {
   }
 
   renderBio() {
-    const { age, howLongIveBeenCoding } = this.state;
+    const { age, howLongIveBeenCoding, isMobile } = this.state;
     return (
-      <div style={{ width: "25%", color: "black" }}>
+      <div style={{ color: "black", width: isMobile ? "" : "25%" }}>
         <div className="padding-sm">
           Hugh Miles
           <br />
           Software Engineer
         </div>
         <div className="padding-sm">
-          I am Hugh Miles, a {formatTime(age)} year old Software engineer living
-          in San Francisco working for the best transportation company in the
-          world Lyft. I've been coding for over{" "}
+          I am Hugh Miles, a {formatTime(age)} year old software engineer living
+          in San Francisco. I work for the best transportation company in the
+          world - Lyft. I've been coding for over{" "}
           {formatTime(howLongIveBeenCoding)} years and have worked on multiple
           projects ranging from landing pages and data pipelines. To see some of
           my work feel free to explore the side-B of the site.
@@ -141,8 +145,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { width } = this.state;
-    const isMobile = width <= 500;
+    const { isMobile } = this.state;
     return (
       <div className="App">
         <div
