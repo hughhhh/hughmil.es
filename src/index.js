@@ -12,11 +12,13 @@ const MILLISECONDS_IN_YEAR = SECONDS_IN_YEAR / 1000;
 const AGE_FORMAT = ".12s";
 
 const projects = [
-  { name: "protoc-gen-flaskbluerint" },
-  { name: "St. George Learning Center" },
-  { name: "Rapbook" },
-  { name: "KickSwap" },
-  { name: "uRyde" }
+  {
+    name: "apache/incubator-superset",
+    url: "https://github.com/apache/incubator-superset"
+  },
+  { name: "St. George Learning Center", url: "http://always123.com/" },
+  { name: "uRyde", url: "https://github.com/hamt3ch/uryde-board" },
+  { name: "KickSwap", url: "https://github.com/kickswap" }
 ];
 
 const socialMedia = [
@@ -71,37 +73,50 @@ class App extends React.Component {
   }
 
   handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
+    this.setState({
+      width: window.innerWidth,
+      isMobile: window.innerWidth <= 600
+    });
   };
 
   renderProjects() {
+    const { isMobile } = this.state;
     return (
       <div
         style={{
-          width: "25%"
+          width: isMobile ? "" : "25%"
         }}
       >
         <div className="padding-x-sm">Projects</div>
         {projects.map(item => (
-          <div>{item.name}</div>
+          <div>
+            <a
+              className="rm-link-dec"
+              style={{ color: "black", textDecorationLine: null }}
+              href={item.url}
+              key={item.url}
+            >
+              {item.name}
+            </a>
+          </div>
         ))}
       </div>
     );
   }
 
   renderBio() {
-    const { age, howLongIveBeenCoding } = this.state;
+    const { age, howLongIveBeenCoding, isMobile } = this.state;
     return (
-      <div style={{ width: "25%", color: "black" }}>
+      <div style={{ color: "black", width: isMobile ? "" : "25%" }}>
         <div className="padding-sm">
           Hugh Miles
           <br />
           Software Engineer
         </div>
         <div className="padding-sm">
-          I am Hugh Miles, a {formatTime(age)} year old Software engineer living
-          in San Francisco working for the best transportation company in the
-          world Lyft. I've been coding for over{" "}
+          I am Hugh Miles, a {formatTime(age)} year old software engineer living
+          in San Francisco. I work for the best transportation company in the
+          world - Lyft. I've been coding for over{" "}
           {formatTime(howLongIveBeenCoding)} years and have worked on multiple
           projects ranging from landing pages and data pipelines. To see some of
           my work feel free to explore the side-B of the site.
@@ -141,8 +156,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { width } = this.state;
-    const isMobile = width <= 500;
+    const { isMobile } = this.state;
     return (
       <div className="App">
         <div
