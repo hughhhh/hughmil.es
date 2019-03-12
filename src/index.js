@@ -12,11 +12,13 @@ const MILLISECONDS_IN_YEAR = SECONDS_IN_YEAR / 1000;
 const AGE_FORMAT = ".12s";
 
 const projects = [
-  { name: "protoc-gen-flaskbluerint" },
-  { name: "St. George Learning Center" },
-  { name: "Rapbook" },
-  { name: "KickSwap" },
-  { name: "uRyde" }
+  {
+    name: "apache/incubator-superset",
+    url: "https://github.com/apache/incubator-superset"
+  },
+  { name: "St. George Learning Center", url: "http://always123.com/" },
+  { name: "uRyde", url: "https://github.com/hamt3ch/uryde-board" },
+  { name: "KickSwap", url: "https://github.com/kickswap" }
 ];
 
 const socialMedia = [
@@ -87,7 +89,16 @@ class App extends React.Component {
       >
         <div className="padding-x-sm">Projects</div>
         {projects.map(item => (
-          <div>{item.name}</div>
+          <div>
+            <a
+              className="rm-link-dec"
+              style={{ color: "black", textDecorationLine: null }}
+              href={item.url}
+              key={item.url}
+            >
+              {item.name}
+            </a>
+          </div>
         ))}
       </div>
     );
