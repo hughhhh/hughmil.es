@@ -12,17 +12,46 @@ const MILLISECONDS_IN_YEAR = SECONDS_IN_YEAR / 1000;
 const AGE_FORMAT = ".12s";
 
 const projects = [
-  { name: "protoc-gen-flaskbluerint" },
-  { name: "St. George Learning Center" },
-  { name: "Rapbook" },
-  { name: "KickSwap" },
-  { name: "uRyde" }
+  {
+    name: "apache/incubator-superset",
+    url: "https://github.com/apache/incubator-superset"
+  },
+  { name: "St. George Learning Center", url: "http://always123.com/" },
+  { name: "uRyde", url: "https://github.com/hamt3ch/uryde-board" },
+  { name: "KickSwap", url: "https://github.com/kickswap" },
+  { name: "locale", url: "https://www.youtube.com/watch?v=h6Xm-M20yMo" }
 ];
 
 const socialMedia = [
   { name: "Linkedin", url: "https://www.linkedin.com/in/hugh-miles-75956488" },
   { name: "Medium", url: "https://medium.com/hacksnextdoor" },
-  { name: "Github", url: "https://github.com/hughhhh" }
+  { name: "Github", url: "https://github.com/hughhhh" },
+  { name: "Twitter", url: "https://twitter.com/hugh_____" }
+];
+
+const quotes = [
+  {
+    name: "Jerry Lorenzo",
+    quote:
+      "You know you achieve it when you can see it differently then anyone else"
+  },
+  {
+    name: "Earnst Hemingway",
+    quote:
+      "There is no bole in being superior to your fellow man; True nobility is being superior to your former self"
+  }
+];
+
+const miscellaneous = [
+  {
+    name: "What I'm listening too",
+    link: "https://itunes.apple.com/profile/hughhhh"
+  },
+  { name: "Goto Drake.gif", link: "http://gph.is/2ARKaxV" },
+  {
+    name: "Proof I walked on to UF",
+    link: "https://floridagators.com/roster.aspx?rp_id=1821"
+  }
 ];
 
 const formatTime = time => format(AGE_FORMAT)(time);
@@ -71,37 +100,51 @@ class App extends React.Component {
   }
 
   handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
+    this.setState({
+      width: window.innerWidth,
+      isMobile: window.innerWidth <= 600
+    });
   };
 
   renderProjects() {
+    const { isMobile } = this.state;
     return (
       <div
+        className="padding-sm"
         style={{
-          width: "25%"
+          width: isMobile ? "" : "25%"
         }}
       >
-        <div className="padding-x-sm">Projects</div>
+        <div className="bld">Projects</div>
         {projects.map(item => (
-          <div>{item.name}</div>
+          <div>
+            <a
+              className="rm-link-dec"
+              style={{ color: "black", textDecorationLine: null }}
+              href={item.url}
+              key={item.url}
+            >
+              {item.name}
+            </a>
+          </div>
         ))}
       </div>
     );
   }
 
   renderBio() {
-    const { age, howLongIveBeenCoding } = this.state;
+    const { age, howLongIveBeenCoding, isMobile } = this.state;
     return (
-      <div style={{ width: "25%", color: "black" }}>
+      <div style={{ color: "black", width: isMobile ? "" : "25%" }}>
         <div className="padding-sm">
           Hugh Miles
           <br />
           Software Engineer
         </div>
         <div className="padding-sm">
-          I am Hugh Miles, a {formatTime(age)} year old Software engineer living
-          in San Francisco working for the best transportation company in the
-          world Lyft. I've been coding for over{" "}
+          I am Hugh Miles, a {formatTime(age)} year old software engineer living
+          in San Francisco. I work for the best transportation company in the
+          world - Lyft. I've been coding for over{" "}
           {formatTime(howLongIveBeenCoding)} years and have worked on multiple
           projects ranging from landing pages and data pipelines. To see some of
           my work feel free to explore the side-B of the site.
@@ -134,15 +177,52 @@ class App extends React.Component {
           width: "50%"
         }}
       >
-        <div>Project Details</div>
+        <div className="bld">Project Details</div>
         <div>Coming soon....</div>
+        <div style={{ flexGrow: 1 }} />
+      </div>
+    );
+  }
+
+  renderQuotes() {
+    return (
+      <div
+        className="padding-sm"
+        style={{
+          justifyContent: "flex-end",
+          display: "flex"
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div>{quotes[0].quote} </div>
+          <div> - {quotes[0].name}</div>
+        </div>
+      </div>
+    );
+  }
+
+  renderMiscellaneous() {
+    return (
+      <div className="padding-sm" style={{ color: "black" }}>
+        <div className="bld">Miscellaneous</div>
+        {miscellaneous.map(item => (
+          <div>
+            <a
+              className="rm-link-dec"
+              style={{ color: "black", textDecorationLine: null }}
+              href={item.link}
+              key={item.link}
+            >
+              {item.name}
+            </a>
+          </div>
+        ))}
       </div>
     );
   }
 
   render() {
-    const { width } = this.state;
-    const isMobile = width <= 500;
+    const { isMobile } = this.state;
     return (
       <div className="App">
         <div
@@ -150,8 +230,14 @@ class App extends React.Component {
           style={{ flexDirection: isMobile ? "column" : "row" }}
         >
           {this.renderBio()}
-          {this.renderProjects()}
+          <div>
+            {this.renderProjects()}
+            {this.renderMiscellaneous()}
+          </div>
           {this.renderProjectDetails()}
+        </div>
+        <div className="Container" style={{}}>
+          {this.renderQuotes()}
         </div>
       </div>
     );

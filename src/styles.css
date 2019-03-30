@@ -245,3 +245,7 @@ body {
 .margin-left-xl {
   margin-left: 3em;
 }
+
+.bld {
+  font-weight: bolder;
+}
