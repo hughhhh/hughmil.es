@@ -77,7 +77,8 @@ class App extends React.Component {
     this.state = {
       age: unixAgeSeconds * SECONDS_IN_YEAR,
       howLongIveBeenCoding: codingAgeSeconds * SECONDS_IN_YEAR,
-      width: window.innerWidth
+      width: window.innerWidth,
+      isMobile: window.innerWidth <= 600
     };
 
     this.timer = setInterval(
