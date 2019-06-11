@@ -44,7 +44,7 @@ const quotes = [
 
 const miscellaneous = [
   {
-    name: "What I'm listening too",
+    name: "What I'm listening to",
     link: "https://itunes.apple.com/profile/hughhhh"
   },
   { name: "Goto Drake.gif", link: "http://gph.is/2ARKaxV" },
