@@ -147,7 +147,7 @@ class App extends React.Component {
           in San Francisco. I work for the best transportation company in the
           world - Lyft. I've been coding for over{" "}
           {formatTime(howLongIveBeenCoding)} years and have worked on multiple
-          projects ranging from landing pages and data pipelines. To see some of
+          projects ranging from landing pages to data pipelines. To see some of
           my work feel free to explore the side-B of the site.
         </div>
         <div className="padding-sm">hugh@hacksnextdoor.com</div>
