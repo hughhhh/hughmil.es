@@ -33,7 +33,7 @@ const quotes = [
   {
     name: "Jerry Lorenzo",
     quote:
-      "You know you achieve it when you can see it differently then anyone else"
+      "You know you can achieve it when you see it differently then anyone else"
   },
   {
     name: "Earnst Hemingway",
