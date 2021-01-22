@@ -1,6 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import autoBind from "auto-bind";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 import "./styles.css";
 
@@ -88,24 +94,44 @@ class App extends React.Component {
     );
   }
 
+  renderHome = () => {
+    return (
+        <div className="App">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              flexDirection: "row",
+              width: "100%"
+            }}
+          >
+            {this.renderBio()}
+            {this.renderProjects()}
+            {this.renderProjectDetails()}
+          </div>
+      </div>
+    )
+  }
+  
+
   render() {
     return (
-      <div className="App">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            flexDirection: "row",
-            width: "100%"
-          }}
-        >
-          {this.renderBio()}
-          {this.renderProjects()}
-          {this.renderProjectDetails()}
-        </div>
-      </div>
+      <Router>
+        <Switch>
+          <Route path="/library">
+            <Library/>
+          </Route>
+          <Route path="/">
+            {this.renderHome()}
+          </Route>
+        </Switch>
+      </Router>
     );
   }
+}
+
+const Library = () => {
+  return <iframe src="https://www.analogue.app/collection/reads-wxrkxz/embed" title="library" allowfullscreen style={{width: '100%', height: '100%'}}></iframe>;
 }
 
 const rootElement = document.getElementById("root");
