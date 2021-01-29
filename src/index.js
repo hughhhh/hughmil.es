@@ -1,6 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import autoBind from "auto-bind";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 import ReactGA from "react-ga";
 import moment from "moment";
 import { format } from "d3-format";
@@ -222,27 +227,44 @@ class App extends React.Component {
     );
   }
 
-  render() {
-    const { isMobile } = this.state;
+  renderHome = () => {
     return (
-      <div className="App">
-        <div
-          className="Container"
-          style={{ flexDirection: isMobile ? "column" : "row" }}
-        >
-          {this.renderBio()}
-          <div>
+        <div className="App">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              flexDirection: "row",
+              width: "100%"
+            }}
+          >
+            {this.renderBio()}
             {this.renderProjects()}
-            {this.renderMiscellaneous()}
+            {this.renderProjectDetails()}
           </div>
-          {this.renderProjectDetails()}
-        </div>
-        <div className="Container" style={{}}>
-          {this.renderQuotes()}
-        </div>
       </div>
+    )
+  }
+  
+
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/library">
+            <Library/>
+          </Route>
+          <Route path="/">
+            {this.renderHome()}
+          </Route>
+        </Switch>
+      </Router>
     );
   }
+}
+
+const Library = () => {
+  return <iframe src="https://www.analogue.app/collection/reads-wxrkxz/embed" title="library" allowfullscreen style={{width: '100%', height: '100%'}}></iframe>;
 }
 
 const rootElement = document.getElementById("root");
