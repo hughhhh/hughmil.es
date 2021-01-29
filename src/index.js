@@ -1,18 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import autoBind from "auto-bind";
-<<<<<<< HEAD
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-=======
 import ReactGA from "react-ga";
 import moment from "moment";
 import { format } from "d3-format";
->>>>>>> 9de366837028f3a00b7701da173539a5cb15ee18
 
 import "./styles.css";
 
